@@ -169,7 +169,7 @@ The Covenant is the **memory-plane realization** of what current standards draft
 ## 13. Spec governance
 
 - Text and conformance suite: **Apache-2.0**, no field-of-use restrictions, patent covenant on implementing the spec as written.
-- Reference implementation: the Memory Covenant v0.3 gateway in this repository (operational).
+- Reference implementation: the Python gateway in this repository (claims no conformance level; receipts are UNSIGNED_HONEST, see README "Honest level"). The operational TypeScript Covenant v0.3 engine lives in szl-frontier `src/lib/covenant`.
 - Amendment: drafts proposed by receipted PR; breaking changes bump the major version; no silent edits — the spec obeys its own lifecycle states.
 
 ---

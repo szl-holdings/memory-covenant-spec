@@ -30,3 +30,22 @@ jobs:
           set -euo pipefail
           python3 -B conformance/suite.py
           python3 -B -m unittest discover -s conformance -p 'test_*.py' -v
+
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0
+        with:
+          python-version: "3.12"
+      - name: Build wheel and import it from a clean directory
+        run: |
+          set -euo pipefail
+          python3 -m pip wheel . --no-deps -w dist
+          python3 -m venv /tmp/v
+          /tmp/v/bin/pip install dist/*.whl
+          cd /tmp
+          /tmp/v/bin/python -c "import covenant, covenant.adapters.in_memory, covenant.adapters.zep_adapter, covenant.adapters.mem0_adapter; print('import ok')"
