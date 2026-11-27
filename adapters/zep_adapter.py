@@ -20,7 +20,7 @@ from __future__ import annotations
 
 from typing import Any, List
 
-from adapters.in_memory import InMemoryPlane
+from .in_memory import InMemoryPlane
 
 
 class ZepPlane:

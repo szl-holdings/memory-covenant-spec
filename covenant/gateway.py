@@ -72,8 +72,10 @@ class CovenantGateway:
     affects following operations; an in-flight operation evaluates and seals
     its receipt with the same captured policy, even across adapter callbacks.
 
-    level: conformance level being enforced (C0..C2 enforced here; C3/C4
-    require witnesses and Learning Receipts - see SPEC.md sections 8-9).
+    level: conformance level the caller is targeting. This reference
+    implements the C1-C2 controls and the C4 review loop in software, but
+    its receipts are UNSIGNED_HONEST (no DSSE signature), so it does not
+    meet C0 and claims no conformance level; see README "Honest level".
     clock: callable returning an ISO-8601 timestamp. The default is a
     fixed epoch for deterministic tests; pass a real clock in production.
     """

@@ -18,7 +18,7 @@
 | --- | --- |
 | **Version** | 0.4-draft (pre-release) |
 | **Status** | SPEC DRAFT — the memory-plane companion to [governed-receipt-spec](https://github.com/szl-holdings/governed-receipt-spec) |
-| **Reference implementation** | Memory Covenant v0.3 in this repository (in-process covenant engine) |
+| **Reference implementation** | The Python gateway in this repository (`covenant/`), exercised by `conformance/suite.py`. The operational TypeScript Covenant v0.3 engine lives in [szl-frontier](https://github.com/szl-holdings/szl-frontier) `src/lib/covenant`. |
 | **License** | Apache-2.0 (text and conformance suite); the verification plane remains commercial |
 | **Author** | SZL Holdings (Doctrine v11) |
 
@@ -35,7 +35,6 @@
 ## Quickstart (clean machine, stdlib only)
 
 ```bash
-cd covenant-spec
 python -B conformance/suite.py   # T1–T14; exit 0 iff every test passes
 python -B -m unittest discover -s conformance -p 'test_*.py' -v
 ```
@@ -61,7 +60,11 @@ prove correspondence to a deployed runtime or qualify witness deployment.
 | **C3** | Witnessed | Multi-party witness set (BFT 3-of-4) on seal-class and cross-tenant operations |
 | **C4** | Learning-honest | Review-gated continuous memory with Learning Receipts and expiry discipline |
 
-**C2 is the recommended enterprise floor.** The reference gateway in this folder implements C0–C2 and the C4 review loop in software.
+**C2 is the recommended enterprise floor.**
+
+### Honest level
+
+**Conformance level claimed by this reference: none.** The gateway implements the C1–C2 controls (receipted recalls, deny-by-default gate, hard denies, tier honesty, tenant isolation) and the C4 review loop in software, and T1–T14 pass. But every level starts at C0, and C0 requires a **DSSE receipt** on every WRITE/INGEST. This reference emits UNSIGNED_HONEST, SHA3-256 hash-chained records with `signature: null`, so it does not meet C0. It therefore claims no level, rather than C0–C2. A deployment that seals these receipts as DSSE/ECDSA-P256 envelopes via [szl-receipt](https://github.com/szl-holdings/szl-receipt) could claim C2 once that is verified. Not implemented here: INGEST, ROUTE and SEAL operations (SPEC §6), and C3 witnesses.
 
 ## Test matrix (excerpt)
 
